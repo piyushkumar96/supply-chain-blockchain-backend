@@ -10,7 +10,7 @@ const   request = require('supertest');
 const   server = require('../../../server'),
         userModel = require('../../models/users/usersModel');
 
-const { userOneId, userOne, setupDatabase } = require('../fixtures/users/users')
+const { userOne, userOneId, userTwo, userTwoId, setupDatabase } = require('../fixtures/users/users')
 
 beforeEach(setupDatabase)
 
@@ -20,8 +20,11 @@ test('Should create a New User', async () => {
         .post('/api/v1/createUser')
         .send({
             name: 'Piyush Kumar',
-            email: 'piyush@gmail.com',
-            password: 'Piyush@123'
+            email: 'piyush1996@gmail.com',
+            password: 'Piyush@123',
+            role: 'buyer',
+            location: 'Pune'
+
         })
         .expect(201)
 
@@ -33,7 +36,7 @@ test('Should create a New User', async () => {
     expect(response.body.message).toMatchObject({
         user: {
             name: 'Piyush Kumar',
-            email: 'piyush@gmail.com'
+            email: 'piyush1996@gmail.com'
         },
         token: user.tokens[0].token
     })
@@ -109,10 +112,24 @@ test('Should update valid user fields', async () => {
         .patch('/api/v1/updateUser')
         .set('Authorization', `Bearer ${userOne.tokens[0].token}`)
         .send({
-            age: '26'
+            location: 'Bengaluru'
         })
         .expect(200)
     const user = await userModel.findById(userOneId)
-    expect(user.age).toEqual(26)
+    expect(user.location).toEqual('Bengaluru')
+})
+
+// test for adding the new Order
+test('Should add a New Order', async () => {
+    const response = await request(server)
+        .post('/api/v1/addOrder')
+        .set('Authorization', `Bearer ${userOne.tokens[0].token}`)
+        .send({
+            orderName:"Vegetables",
+	        sellerId: "SEL1",
+	        sellerLoc:"Bengaluru, Karnataka"
+
+        })
+        .expect(200)
 })
 

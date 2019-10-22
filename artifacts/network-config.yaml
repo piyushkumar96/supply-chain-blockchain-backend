@@ -11,7 +11,7 @@ name: "balance-transfer"
 # in HTTP headers or swagger properties work. The SDK will simply ignore these fields and leave
 # them for the applications to process. This is a mechanism for different components of an application
 # to exchange information that are not part of the standard schema described below. In particular,
-# the "x-type" property with the "hlfv1" value example below is used by Hyperledger Composer to
+# the "x-type" property with the "hlfv1" value supplychainntw below is used by Hyperledger Composer to
 # determine the type of Fabric networks (v0.6 vs. v1.0) it needs to work with.
 #
 x-type: "hlfv1"
@@ -38,17 +38,17 @@ version: "1.0"
 #
 channels:
   # name of the channel
-  mychannel:
+  trackchannel:
     # Required. list of orderers designated by the application to use for transactions on this
     # channel. This list can be a result of access control ("org1" can only access "ordererA"), or
     # operational decisions to share loads from applications among the orderers.  The values must
     # be "names" of orgs defined under "organizations/peers"
     orderers:
-      - orderer.example.com
+      - orderer.supplychainntw.com
 
     # Required. list of peers from participating orgs
     peers:
-      peer0.org1.example.com:
+      peer0.org1.supplychainntw.com:
         # [Optional]. will this peer be sent transaction proposals for endorsement? The peer must
         # have the chaincode installed. The app can also use this property to decide which peers
         # to send the chaincode install request. Default: true
@@ -68,19 +68,19 @@ channels:
         # Default: true
         eventSource: true
 
-      peer1.org1.example.com:
+      peer1.org1.supplychainntw.com:
         endorsingPeer: false
         chaincodeQuery: true
         ledgerQuery: true
         eventSource: false
 
-      peer0.org2.example.com:
+      peer0.org2.supplychainntw.com:
         endorsingPeer: true
         chaincodeQuery: true
         ledgerQuery: true
         eventSource: true
 
-      peer1.org2.example.com:
+      peer1.org2.supplychainntw.com:
         endorsingPeer: false
         chaincodeQuery: true
         ledgerQuery: true
@@ -91,7 +91,7 @@ channels:
     # this list with the query results of getInstalledChaincodes() and getInstantiatedChaincodes()
     chaincodes:
       # the format follows the "cannonical name" of chaincodes by fabric code
-      - mycc:v0
+      - trkcc:v0
 
 #
 # list of participating organizations in this network
@@ -101,8 +101,8 @@ organizations:
     mspid: Org1MSP
 
     peers:
-      - peer0.org1.example.com
-      - peer1.org1.example.com
+      - peer0.org1.supplychainntw.com
+      - peer1.org1.supplychainntw.com
 
     # [Optional]. Certificate Authorities issue certificates for identification purposes in a Fabric based
     # network. Typically certificates provisioning is done in a separate process outside of the
@@ -120,9 +120,9 @@ organizations:
     # this way. The SDK should allow applications to set the org admin identity via APIs, and only use
     # this route as an alternative when it exists.
     adminPrivateKey:
-      path: artifacts/channel/crypto-config/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/keystore/b53808eb8f76e3501cba98ac4f9945ee615bbd0087de3c1862bc10b1f08b911d_sk
+      path: artifacts/crypto-config/peerOrganizations/org1.supplychainntw.com/users/Admin@org1.supplychainntw.com/msp/keystore/a9e21a93f360ff46d201f0bb6567fa23708a3e322935ca1ca7d7214229a7f3a9_sk
     signedCert:
-      path: artifacts/channel/crypto-config/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/signcerts/Admin@org1.example.com-cert.pem
+      path: artifacts/crypto-config/peerOrganizations/org1.supplychainntw.com/users/Admin@org1.supplychainntw.com/msp/signcerts/Admin@org1.supplychainntw.com-cert.pem
 
   # the profile will contain public information about organizations other than the one it belongs to.
   # These are necessary information to make transaction lifecycles work, including MSP IDs and
@@ -132,14 +132,14 @@ organizations:
   Org2:
     mspid: Org2MSP
     peers:
-      - peer0.org2.example.com
-      - peer1.org2.example.com
+      - peer0.org2.supplychainntw.com
+      - peer1.org2.supplychainntw.com
     certificateAuthorities:
       - ca-org2
     adminPrivateKey:
-      path: artifacts/channel/crypto-config/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp/keystore/b7303d8613ecdc26d35428df2ed4dd7c0277b31d2984c834a0501e032707a3e4_sk
+      path: artifacts/crypto-config/peerOrganizations/org2.supplychainntw.com/users/Admin@org2.supplychainntw.com/msp/keystore/db3aa7943d398315cb49132bb511c3cefde822a75295a2847484176ee115c82b_sk
     signedCert:
-      path: artifacts/channel/crypto-config/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp/signcerts/Admin@org2.example.com-cert.pem
+      path: artifacts/crypto-config/peerOrganizations/org2.supplychainntw.com/users/Admin@org2.supplychainntw.com/msp/signcerts/Admin@org2.supplychainntw.com-cert.pem
 
 #
 # List of orderers to send transaction and channel create/update requests to. For the time
@@ -147,52 +147,37 @@ organizations:
 # SDK is implementation specific. Consult each SDK's documentation for its handling of orderers.
 #
 orderers:
-  orderer.example.com:
+  orderer.supplychainntw.com:
     url: grpcs://localhost:7050
 
     # these are standard properties defined by the gRPC library
     # they will be passed in as-is to gRPC client constructor
     grpcOptions:
-      ssl-target-name-override: orderer.example.com
+      ssl-target-name-override: orderer.supplychainntw.com
 
     tlsCACerts:
-      path: artifacts/channel/crypto-config/ordererOrganizations/example.com/orderers/orderer.example.com/tls/ca.crt
+      path: artifacts/crypto-config/ordererOrganizations/supplychainntw.com/orderers/orderer.supplychainntw.com/tls/ca.crt
 
 #
 # List of peers to send various requests to, including endorsement, query
 # and event listener registration.
 #
 peers:
-  peer0.org1.example.com:
+  peer0.org1.supplychainntw.com:
     # this URL is used to send endorsement and query requests
     url: grpcs://localhost:7051
 
     grpcOptions:
-      ssl-target-name-override: peer0.org1.example.com
+      ssl-target-name-override: peer0.org1.supplychainntw.com
     tlsCACerts:
-      path: artifacts/channel/crypto-config/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
+      path: artifacts/crypto-config/peerOrganizations/org1.supplychainntw.com/peers/peer0.org1.supplychainntw.com/tls/ca.crt
 
-  peer1.org1.example.com:
-    url: grpcs://localhost:7056
-    grpcOptions:
-      ssl-target-name-override: peer1.org1.example.com
-    tlsCACerts:
-      path: artifacts/channel/crypto-config/peerOrganizations/org1.example.com/peers/peer1.org1.example.com/tls/ca.crt
-
-  peer0.org2.example.com:
+  peer0.org2.supplychainntw.com:
     url: grpcs://localhost:8051
     grpcOptions:
-      ssl-target-name-override: peer0.org2.example.com
+      ssl-target-name-override: peer0.org2.supplychainntw.com
     tlsCACerts:
-      path: artifacts/channel/crypto-config/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt
-
-  peer1.org2.example.com:
-    url: grpcs://localhost:8056
-    eventUrl: grpcs://localhost:8058
-    grpcOptions:
-      ssl-target-name-override: peer1.org2.example.com
-    tlsCACerts:
-      path: artifacts/channel/crypto-config/peerOrganizations/org2.example.com/peers/peer1.org2.example.com/tls/ca.crt
+      path: artifacts/crypto-config/peerOrganizations/org2.supplychainntw.com/peers/peer0.org2.supplychainntw.com/tls/ca.crt
 
 #
 # Fabric-CA is a special kind of Certificate Authority provided by Hyperledger Fabric which allows
@@ -207,7 +192,7 @@ certificateAuthorities:
     httpOptions:
       verify: false
     tlsCACerts:
-      path: artifacts/channel/crypto-config/peerOrganizations/org1.example.com/ca/ca.org1.example.com-cert.pem
+      path: artifacts/crypto-config/peerOrganizations/org1.supplychainntw.com/ca/ca.org1.supplychainntw.com-cert.pem
 
     # Fabric-CA supports dynamic user enrollment via REST APIs. A "root" user, a.k.a registrar, is
     # needed to enroll and invoke new users.
@@ -222,7 +207,7 @@ certificateAuthorities:
     httpOptions:
       verify: false
     tlsCACerts:
-      path: artifacts/channel/crypto-config/peerOrganizations/org2.example.com/ca/ca.org2.example.com-cert.pem
+      path: artifacts/crypto-config/peerOrganizations/org2.supplychainntw.com/ca/ca.org2.supplychainntw.com-cert.pem
     registrar:
       - enrollId: admin
         enrollSecret: adminpw

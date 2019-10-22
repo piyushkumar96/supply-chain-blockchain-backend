@@ -14,22 +14,22 @@ module.exports = function (app) {
 
     // update order status
     app.route('/api/v1/updateOrderStatus')
-       .post(authentication.auth, ordersController.updateOrderStatus)
+       .patch(authentication.auth, ordersController.updateOrderStatus)
 
     // update logistic details of order 
     app.route('/api/v1/updateLogisticDetails')
-       .post(authentication.auth, ordersController.updateLogisticDetails)
+       .patch(authentication.auth, ordersController.updateLogisticDetails)
    
    // update time raster details of order
    app.route('/api/v1/updateTimeRaster')
-   .post(ordersController.updateTimeRaster)  
+      .patch(ordersController.updateTimeRaster)  
 
    // get all orders
    app.route('/api/v1/getAllOrders')
-   .get(authentication.auth,ordersController.getAllOrders)  
+      .get(authentication.auth,ordersController.getAllOrders)  
 
    // get an order
    app.route('/api/v1/getOrder/:orderId')
-   .get(authentication.auth,ordersController.getOrder)  
+      .get(authentication.auth,ordersController.getOrder)  
    
 };

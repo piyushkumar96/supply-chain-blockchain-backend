@@ -9,14 +9,18 @@ const   mongoose = require('mongoose'),
 
 // Internal Modules
 const   user = require('../../../models/users/usersModel'),
-        config = require('../../../../config/config.json');
+        config = require('../../../../config/config.json'),
+        helper = require('./../../../fabric-libs/helper');
 
 const userOneId = new mongoose.Types.ObjectId()
 const userOne = {
     _id: userOneId,
-    name: 'Aditi Yaduvanshi',
-    email: 'aditi@gmail.com',
-    password: 'Aditi@123',
+    Id: "SELRK",
+    name: 'Rishu Kumar',
+    email: 'rishu@gmail.com',
+    password: 'Rishu@123',
+    role: 'buyer',
+    location: 'Hyderabad',
     tokens: [{
         token: jwt.sign({ _id: userOneId}, config.jwt_secret)
     }]
@@ -26,9 +30,12 @@ const userOne = {
 const userTwoId = new mongoose.Types.ObjectId()
 const userTwo = {
     _id: userTwoId,
-    name: 'Sanjana Priya',
-    email: 'sanjana@gmail.com',
-    password: 'Sanjana@123',
+    Id: "SELAK",
+    name: 'Ayush Kumar',
+    email: 'ayush@gmail.com',
+    password: 'Ayush@123',
+    role: 'buyer',
+    location: 'Mumbai',
     tokens: [{
         token: jwt.sign({ _id: userTwoId}, config.jwt_secret)
     }]
@@ -37,13 +44,15 @@ const userTwo = {
 const setupDatabase = async () => {
     await user.deleteMany()
     await new user(userOne).save()
-    await new user(userTwo).save()
+    //await new user(userTwo).save()
+    await helper.getRegisteredUser(userOne.Id, config.orgName, true, "user");
+    //await helper.getRegisteredUser(userTwo.Id, config.orgName, true, "user");
 }
 
 module.exports = {
     userOne,
     userOneId,
-    userTwo,
-    userTwoId,
+    //userTwo,
+    //userTwoId,
     setupDatabase
 }

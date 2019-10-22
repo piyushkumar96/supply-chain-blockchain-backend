@@ -15,6 +15,7 @@ const loggerName = "[ordersSvc ]: ";
 /**
  * Add Order
  * @param {String} orderId
+ * @param {String} orderName
  * @param {String} buyerId
  * @param {String} buyerLoc
  * @param {String} temperature
@@ -26,32 +27,35 @@ exports.addOrder = function (data) {
 
     return new Promise(async (resolve, reject) => {
 
-        let orderId = await counterHlp.counters("order")
-
-        let sellerId = data.user.Id,
-            sellerLoc = data.user.location,
-            status = data.body.status,
-            buyerId = data.body.buyerId,
-            buyerLoc = data.body.buyerLoc,
-            temperature = data.body.temperature;
-
-        let timestamp = new Date();
-        let args = [orderId.toString(), sellerId.toString(), sellerLoc.toString(), buyerId.toString(), buyerLoc.toString(), timestamp.toString(), temperature.toString(), status.toString()]
-
-
         try {
-            var result = await fabricInvoke.invokeChaincode(config.peerNames, config.channelName, config.chaincodeName, "addOrder", args, sellerId, config.orgName);
-            // if (result && typeof result !== 'string') {
-            logger.debug(loggerName + ' Order added Successfully in Blockchain with  %s ', orderId);
-            resolve("Order added Successfully")
+            let orderId = await counterHlp.counters("order", "1")
+            let buyerId = data.user.Id,
+                buyerLoc = data.user.location,
+                orderName = data.body.orderName,
+                sellerId = data.body.sellerId,
+                sellerLoc = data.body.sellerLoc;
 
-            // }else {
-            //     logger.error(loggerName + " Error in adding the order in Blockchain");
-            //     reject("Unable to add Order in blockchain")
-            // }
+            let args = [orderId.toString(), orderName.toString(), buyerId.toString(), buyerLoc.toString(), sellerId.toString(), sellerLoc.toString()]
+
+
+            try {
+                var result = await fabricInvoke.invokeChaincode(config.peerNames, config.channelName, config.chaincodeName, "addOrder", args, buyerId, config.orgName);
+                // if (result && typeof result !== 'string') {
+                logger.debug(loggerName + ' Order added Successfully in Blockchain with  %s ', orderId);
+                resolve("Order added Successfully")
+
+                // }else {
+                //     logger.error(loggerName + " Error in adding the order in Blockchain");
+                //     reject("Unable to add Order in blockchain")
+                // }
+            } catch (error) {
+                let orderId = await counterHlp.counters("order", "-1")
+                logger.error(loggerName + ' Error in adding the order in Blockchain');
+                reject("Error in adding the order in Blockchain " + error)
+            }
         } catch (error) {
-            logger.error(loggerName + ' Error in adding the order in Blockchain');
-            reject("Error in adding the order in Blockchain " + error)
+            logger.error(loggerName + ' Error while generating the Order Id', error);
+            reject(error)
         }
     });
 
@@ -107,9 +111,13 @@ exports.updateLogisticDetails = function (data) {
         orderId = data.body.orderId,
         logisticId = data.body.logisticId,
         logisticLoc = data.body.logisticLoc,
-        status = data.body.status;
+        status = data.body.status,
+        temperature = data.body.temperature;
 
-    let args = [orderId.toString(), logisticId.toString(), logisticLoc.toString(), status.toString()]
+
+    let timestamp = new Date()
+
+    let args = [orderId.toString(), logisticId.toString(), logisticLoc.toString(), status.toString(), timestamp.toString(), temperature.toString()]
 
     return new Promise(async (resolve, reject) => {
 
@@ -192,7 +200,7 @@ exports.getAllOrders = function (data) {
         try {
             var result = await fabricQuery.queryChaincode(config.peerNames, config.channelName, config.chaincodeName, args, "queryOrders", id, config.orgName);
             //if (result && typeof result !== 'string') {
-            logger.debug(loggerName + ' Succesfully get all Orders   %s ');
+            logger.debug(loggerName + ' Successfully get all Orders   %s ');
             resolve(result)
 
             // }else {
@@ -223,7 +231,7 @@ exports.getOrder = function (data) {
         try {
             var result = await fabricQuery.queryChaincode(config.peerNames, config.channelName, config.chaincodeName, args, "readOrder", id, config.orgName);
             //if (result && typeof result !== 'string') {
-            logger.debug(loggerName + ' Succesfully get an Order   %s ');
+            logger.debug(loggerName + ' Successfully get an Order   %s ');
             resolve(result)
 
             // }else {

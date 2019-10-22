@@ -22,11 +22,11 @@ module.exports = function (app) {
 
     // logout current session of the user
     app.route('/api/v1/logoutCS')
-       .post(authentication.auth, usersController.logoutCS)
+       .patch(authentication.auth, usersController.logoutCS)
 
     // logout all sessions of the user
     app.route('/api/v1/logoutAS')
-       .post(authentication.auth, usersController.logoutAS)
+       .patch(authentication.auth, usersController.logoutAS)
    
 
     //update the user's profile

@@ -11,32 +11,33 @@ const   loggerName = "[ordersCntrl]: ";
 
 // function for creating a new order
 exports.addOrder = async function (req, res) {
-    let  status = req.body.status,
-         buyerId = req.body.buyerId,
-         buyerLoc = req.body.buyerLoc,
-         temperature = req.body.temperature;
+    let  orderName = req.body.orderName,
+         sellerId = req.body.sellerId,
+         sellerLoc = req.body.sellerLoc;
 
-    if (!status || !buyerId || !buyerLoc || !temperature) {
+    if (!orderName || !sellerId || !sellerLoc) {
         logger.error(loggerName + "Invalid Parameters while creating Order !!!")
         res.status(400).json({
             success: false,
             message: 'Invalid parameters'
         });
+    }else{
+
+        try {
+            let result = await ordersSvc.addOrder(req);
+            res.status(200).json({
+                success: true,
+                message: result
+            });
+        } catch(err) {
+            logger.error(loggerName + err)
+            res.status(400).json({
+                success: false, 
+                message: err
+            });
+        }
     }
 
-    try {
-        let result = await ordersSvc.addOrder(req);
-        res.status(200).json({
-            success: true,
-            message: result
-        });
-    } catch(err) {
-        logger.error(loggerName + err)
-        res.status(400).json({
-            success: false, 
-            message: err
-        });
-    }
 }
 
 // function for updating an order status
@@ -50,20 +51,21 @@ exports.updateOrderStatus = async function (req, res) {
             success: false,
             message: 'Invalid parameters'
         });
-    }
+    }else {
 
-    try {
-        let result = await ordersSvc.updateOrderStatus(req);
-        res.status(200).json({
-            success: true,
-            message: result
-        });
-    } catch(err) {
-        logger.error(loggerName + err)
-        res.status(400).json({
-            success: false, 
-            message: err
-        });
+        try {
+            let result = await ordersSvc.updateOrderStatus(req);
+            res.status(200).json({
+                success: true,
+                message: result
+            });
+        } catch(err) {
+            logger.error(loggerName + err)
+            res.status(400).json({
+                success: false, 
+                message: err
+            });
+        }
     }
 }
 
@@ -81,20 +83,21 @@ exports.updateLogisticDetails = async function (req, res) {
             success: false,
             message: 'Invalid parameters'
         });
-    }
+    }else {
 
-    try {
-        let result = await ordersSvc.updateLogisticDetails(req);
-        res.status(200).json({
-            success: true,
-            message: result
-        });
-    } catch(err) {
-        logger.error(loggerName + err)
-        res.status(400).json({
-            success: false, 
-            message: err
-        });
+        try {
+            let result = await ordersSvc.updateLogisticDetails(req);
+            res.status(200).json({
+                success: true,
+                message: result
+            });
+        } catch(err) {
+            logger.error(loggerName + err)
+            res.status(400).json({
+                success: false, 
+                message: err
+            });
+        }
     }
 }
 
@@ -110,20 +113,21 @@ exports.updateTimeRaster = async function (req, res) {
             success: false,
             message: 'Invalid parameters'
         });
-    }
+    }else {
 
-    try {
-        let result = await ordersSvc.updateTimeRaster(req);
-        res.status(200).json({
-            success: true,
-            message: result
-        });
-    } catch(err) {
-        logger.error(loggerName + err)
-        res.status(400).json({
-            success: false, 
-            message: err
-        });
+        try {
+            let result = await ordersSvc.updateTimeRaster(req);
+            res.status(200).json({
+                success: true,
+                message: result
+            });
+        } catch(err) {
+            logger.error(loggerName + err)
+            res.status(400).json({
+                success: false, 
+                message: err
+            });
+        }
     }
 }
 

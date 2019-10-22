@@ -39,7 +39,6 @@ var queryChaincode = async function(peerNames, channelName, chaincodeName, args,
 			fcn: fcn,
 			args: args
 		};
-		console.log(request)
 		let response_payloads = await channel.queryByChaincode(request);
 		if (response_payloads) {
 			for (let i = 0; i < response_payloads.length; i++) {

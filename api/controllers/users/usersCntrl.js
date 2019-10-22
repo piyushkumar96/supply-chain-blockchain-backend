@@ -23,20 +23,21 @@ exports.createUser = async function (req, res) {
             success: false,
             message: 'Invalid parameters'
         });
-    }
+    }else {
 
-    try {
-        let result = await usersSvc.createUser(req.body);
-        res.status(201).json({
-            success: true,
-            message: result
-        });
-    } catch(err) {
-        logger.error(loggerName + err)
-        res.status(400).json({
-            success: false, 
-            message: err
-        });
+        try {
+            let result = await usersSvc.createUser(req.body);
+            res.status(201).json({
+                success: true,
+                message: result
+            });
+        } catch(err) {
+            logger.error(loggerName + err)
+            res.status(400).json({
+                success: false, 
+                message: err
+            });
+        }
     }
 }
 
@@ -51,21 +52,22 @@ exports.loginUser = async function (req, res) {
             success: false,
             message: 'Invalid parameters'
         });
-    }
+    }else {
 
-    try {
-        let result = await usersSvc.loginUser(req.body);
-        logger.info("User logined Succefully @@@")
-        res.status(200).json({
-            success: true,
-            message: result
-        });
-    } catch(err) {
-        logger.error(loggerName + err)
-        res.status(400).json({
-            success: false,
-            message: err
-        });
+        try {
+            let result = await usersSvc.loginUser(req.body);
+            logger.info("User logined Succefully @@@")
+            res.status(200).json({
+                success: true,
+                message: result
+            });
+        } catch(err) {
+            logger.error(loggerName + err)
+            res.status(400).json({
+                success: false,
+                message: err
+            });
+        }
     }
 }
 
@@ -157,20 +159,21 @@ exports.updatePassword = async function (req, res) {
             success: false,
             message: 'Password did not Match!!!'
         });
-    }
+    }else{
     
-    try {
-        let result = await usersSvc.updatePassword(req);
-        res.status(200).json({
-            success: true,
-            message: result
-        });
-    } catch(err) {
-        logger.error(loggerName + err)
-        res.status(400).json({
-            success: false,
-            message: err
-        });
+        try {
+            let result = await usersSvc.updatePassword(req);
+            res.status(200).json({
+                success: true,
+                message: result
+            });
+        } catch(err) {
+            logger.error(loggerName + err)
+            res.status(400).json({
+                success: false,
+                message: err
+            });
+        }
     }
 }
 

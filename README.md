@@ -1,5 +1,9 @@
-# standard-api-nodejs-scafflod
-This folder contains standard and generalise Nodejs APIs for starting any project
+# supply-chain-blockchain-backend
+This folder contains standard and generalise Nodejs backend APIs for supply chain tracking of an Item.
+
+# Technology Stack
+1. MEAN stack
+2. blockchain (Hyperledger)
 
 **Features:-**
 1. Generalise

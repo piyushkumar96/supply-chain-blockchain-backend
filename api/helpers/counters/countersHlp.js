@@ -1,7 +1,11 @@
-/*
- *This file is for authenticating user to hit APIs
-*/
-
+/*************************************************************************
+*
+*   Author:- piyushkumar96
+*   Git:-    https://github.com/piyushkumar96
+*   Folder Link:- https://github.com/piyushkumar96/supply-chain-blockchain-backend
+* 
+*   This file contains autoincrement counter for users and orders
+ **************************************************************************/
 'use strict';
 
 // External Modules

@@ -1,6 +1,12 @@
-/*
- * This file is used for setting up the environment variables for testing users routes
-*/
+/*************************************************************************
+*
+*   Author:- piyushkumar96
+*   Git:-    https://github.com/piyushkumar96
+*   Folder Link:- https://github.com/piyushkumar96/supply-chain-blockchain-backend
+* 
+*   This file is used for setting up the environment variables for testing users routes
+ **************************************************************************/
+
 'use strict';
 
 //External Modules 
@@ -35,7 +41,7 @@ const userTwo = {
     email: 'ayush@gmail.com',
     password: 'Ayush@123',
     role: 'buyer',
-    location: 'Mumbai',
+    location: 'Mumbai, Maharastra',
     tokens: [{
         token: jwt.sign({ _id: userTwoId}, config.jwt_secret)
     }]

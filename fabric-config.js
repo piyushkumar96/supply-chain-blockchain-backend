@@ -1,17 +1,11 @@
 /*************************************************************************
 *
-* UNDP CONFIDENTIAL
-* __________________
-*
-*  [2018] - UNDP
-*  All Rights Reserved.
-*
-* NOTICE:  All information contained herein is, and remains
-* the property of UNDP and its suppliers, if any.
-* Dissemination of this information or reproduction of this material
-* is strictly forbidden unless prior written permission is obtained
-* from UNDP.
-***************************************************************************/
+*   Author:- piyushkumar96
+*   Git:-    https://github.com/piyushkumar96
+*   Folder Link:- https://github.com/piyushkumar96/supply-chain-blockchain-backend
+* 
+*   This file used for connecting blockchain with backend
+ **************************************************************************/
 
 var util = require('util');
 var path = require('path');

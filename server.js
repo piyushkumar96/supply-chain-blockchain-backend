@@ -1,6 +1,11 @@
-/*
- *This file contains the server confrigurations
-*/
+/*************************************************************************
+*
+*   Author:- piyushkumar96
+*   Git:-    https://github.com/piyushkumar96
+*   Folder Link:- https://github.com/piyushkumar96/supply-chain-blockchain-backend
+* 
+*   This file contains the server confrigurations
+ **************************************************************************/
 
 // to enable strict mode
         "use strict";

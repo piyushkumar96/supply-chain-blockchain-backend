@@ -1,17 +1,10 @@
 /*************************************************************************
 *
-* FAO CONFIDENTIAL
-* __________________
-*
-*  [2018] - FAO
-*  All Rights Reserved.
-*
-* NOTICE:  All information contained herein is, and remains
-* the property of FAO and its suppliers, if any.
-* Dissemination of this information or reproduction of this material
-* is strictly forbidden unless prior written permission is obtained
-* from FAO.
-***************************************************************************/
+*   Author:- piyushkumar96
+*   Git:-    https://github.com/piyushkumar96
+*   Folder Link:- https://github.com/piyushkumar96/supply-chain-blockchain-backend
+* 
+ **************************************************************************/
 
 'use strict';
 

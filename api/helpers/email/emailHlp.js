@@ -1,6 +1,13 @@
-/*
- *This file is used for sending the emails using the SendGrid.
-*/
+/*************************************************************************
+*
+*   Author:- piyushkumar96
+*   Git:-    https://github.com/piyushkumar96
+*   Folder Link:- https://github.com/piyushkumar96/supply-chain-blockchain-backend
+* 
+*   This file is used for sending the emails using the SendGrid.
+ **************************************************************************/
+
+ 
 'use strict';
 
 //External Modules 

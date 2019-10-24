@@ -7,7 +7,6 @@
 *   This file is used for sending the emails using the SendGrid.
  **************************************************************************/
 
- 
 'use strict';
 
 //External Modules 
